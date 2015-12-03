@@ -67,6 +67,39 @@ public class SnakeGame : MonoBehaviour {
             foodSprites.SetValue(objs[i], i);
         }
 	}
+
+    private bool isInputLeft()
+    {
+        if (Input.GetButtonDown("Left"))
+        {
+            return true;
+        }
+        if (
+            Input.touchCount > 0
+            && Input.touches[Input.touchCount - 1].phase == TouchPhase.Began
+            && Input.touches[Input.touchCount - 1].position.x < Screen.width / 2
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    private bool isInputRight()
+    {
+        if (Input.GetButtonDown("Right"))
+        {
+            return true;
+        }
+        if (
+            Input.touchCount > 0
+            && Input.touches[Input.touchCount - 1].phase == TouchPhase.Began
+            && Input.touches[Input.touchCount - 1].position.x > Screen.width / 2
+        )
+        {
+            return true;
+        }
+        return false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -92,11 +125,11 @@ public class SnakeGame : MonoBehaviour {
         else if (status == STATUS_PLAY)
         {
 
-            if (Input.GetButtonDown("Left"))
+            if (isInputLeft())
             {
                 requiredRotation = 1;
             }
-            if (Input.GetButtonDown("Right"))
+            if (isInputRight())
             {
                 requiredRotation = 2;
             }
